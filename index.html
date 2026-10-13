@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Десять стихов для родителей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: одна карточка в фокусе, лента ссылок сверху, три вкладки внутри карточки */
+:root{
+  --bg:#EDF1EC; --surface:#FAFCF9; --ink:#1C2723; --muted:#5A6A63; --line:#D2DBD4;
+  --accent:#2C6554; --accent-ink:#FFFFFF; --accent-soft:#DAE8E1; --gold:#9C7019; --gold-soft:#F2E7CC;
+  --f-verse:"Alegreya", Georgia, "Times New Roman", serif;
+  --f-ui:"Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A17; --surface:#1B2420; --ink:#E5ECE8; --muted:#9AA9A2; --line:#2E3B35;
+    --accent:#7FC4AB; --accent-ink:#0F1A16; --accent-soft:#213731; --gold:#D8B263; --gold-soft:#3A3021;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131A17; --surface:#1B2420; --ink:#E5ECE8; --muted:#9AA9A2; --line:#2E3B35;
+  --accent:#7FC4AB; --accent-ink:#0F1A16; --accent-soft:#213731; --gold:#D8B263; --gold-soft:#3A3021;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:28px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-family:var(--f-verse);font-weight:700;font-size:clamp(28px,5vw,40px);line-height:1.1;margin:6px 0 10px;text-wrap:balance}
+.intro{margin:0;color:var(--muted);max-width:60ch}
+.progress{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{flex:1;max-width:220px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 12.5px/1 var(--f-ui);padding:8px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-current="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:none}
+.chip.learned .dot{display:inline-block}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;display:flex;flex-direction:column;gap:16px}
+.card-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px}
+.count{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.theme{font-size:12px;font-weight:600;color:var(--gold);background:var(--gold-soft);padding:4px 9px;border-radius:6px}
+h2.ref{font-family:var(--f-verse);font-size:22px;font-weight:500;margin:0}
+
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{font:600 13.5px/1 var(--f-ui);padding:10px 12px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.verse{font-family:var(--f-verse);font-size:clamp(21px,3.6vw,27px);line-height:1.45;margin:6px 0 4px;text-wrap:pretty}
+.verse-ref{font-size:13px;color:var(--muted);margin:0}
+.panel{min-height:220px}
+.panel h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;font-weight:700}
+.panel p{margin:0;max-width:64ch}
+.panel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:64ch}
+.step{border-left:3px solid var(--gold);padding:6px 0 6px 12px}
+
+.levels{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.lvl{font:600 12.5px/1 var(--f-ui);padding:8px 11px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.lvl[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.gap{font:inherit;color:transparent;background:var(--accent-soft);border:none;border-bottom:2px solid var(--accent);border-radius:4px 4px 0 0;padding:0 2px;cursor:pointer;line-height:1.1;vertical-align:baseline}
+.gap.fl{color:var(--accent)}
+.gap .rest{display:inline-block}
+.revealed{color:var(--accent);font-style:italic}
+.hint{font-size:13px;color:var(--muted);margin-top:10px}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.btn{font:600 13.5px/1 var(--f-ui);padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.done{background:var(--gold-soft);border-color:var(--gold);color:var(--ink)}
+
+.nav{display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:14px}
+.note{font-size:12.5px;color:var(--muted);margin:0}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header>
+    <div class="eyebrow">Синодальный перевод · 10 стихов</div>
+    <h1>Десять стихов о воспитании детей</h1>
+    <p class="intro">Каждая карточка открывается на стихе. Во второй вкладке есть пояснение, вопросы и одно дело на неделю. В третьей слова постепенно исчезают, пока стих не останется только в памяти.</p>
+    <div class="progress"><span id="progText">Выучено 0 из 10</span><div class="bar"><span id="progBar"></span></div></div>
+  </header>
+
+  <nav class="chips" id="chips" aria-label="Стихи"></nav>
+
+  <article class="card" id="card">
+    <div class="card-head">
+      <span class="count" id="count"></span>
+      <span class="theme" id="theme"></span>
+    </div>
+    <h2 class="ref" id="ref"></h2>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="verse" id="t-verse">Стих</button>
+      <button class="tab" role="tab" data-tab="reflect" id="t-reflect">Размышление</button>
+      <button class="tab" role="tab" data-tab="learn" id="t-learn">Заучивание</button>
+    </div>
+    <section class="panel" id="panel"></section>
+    <div class="nav">
+      <button class="btn" id="prev">Предыдущий</button>
+      <button class="btn" id="next">Следующий</button>
+    </div>
+  </article>
+
+  <p class="note">Тексты приведены по Синодальному переводу. Во Второзаконии 6:6 опущены слова в квадратных скобках, в Иисусе Навине 24:15 дано окончание стиха. Отметки о выученных стихах хранятся только в этом браузере.</p>
+</main>
+
+<script>
+const VERSES = [
+  {ref:"Второзаконие 6:6-7", theme:"Вера в каждом дне",
+   text:"И да будут слова сии, которые Я заповедую тебе сегодня, в сердце твоем; и внушай их детям твоим и говори о них, сидя в доме твоем и идя дорогою, и ложась и вставая.",
+   context:"Моисей говорит это Израилю перед входом в обетованную землю. Порядок здесь важен: сначала слова Бога поселяются в сердце родителя, потом передаются детям в обычной жизни дома и в дороге.",
+   questions:["Какие слова Бога живут в моём сердце сейчас?","В какие повторяющиеся моменты дня (дорога, ужин, сон) можно говорить с ребёнком о Боге?"],
+   step:"Выбрать один ежедневный момент и связать его с короткой молитвой или разговором о Боге."},
+  {ref:"Притчи 22:6", theme:"Начало пути",
+   text:"Наставь юношу при начале пути его: он не уклонится от него, когда и состарится.",
+   context:"Еврейский глагол «ханак», переведённый как «наставь», означает также «посвятить». Им описано и освящение нового дома. Притчи описывают общий порядок жизни, поэтому стих читают как принцип мудрости для родителей.",
+   questions:["Какое направление я задаю ребёнку своим примером?","Что из услышанного в детстве до сих пор живёт во мне?"],
+   step:"Записать три истины о Боге, которые хочу передать ребёнку в этом году."},
+  {ref:"Ефесянам 6:4", theme:"Строгость без гнева",
+   text:"И вы, отцы, не раздражайте детей ваших, но воспитывайте их в учении и наставлении Господнем.",
+   context:"В греко-римском мире власть отца над детьми была почти безграничной. Павел ставит ей предел. «Учение» (пайдейя) включает обучение и дисциплину, «наставление» (нутесия) означает вразумляющее слово.",
+   questions:["Что в моём поведении чаще всего раздражает ребёнка?","Где я наказываю без объяснения?"],
+   step:"После каждого замечания спокойно объяснить ребёнку, почему это важно."},
+  {ref:"Псалом 77:4", theme:"Рассказ о делах Бога",
+   text:"не скроем от детей их, возвещая роду грядущему славу Господа, и силу Его, и чудеса Его, которые Он сотворил.",
+   context:"Асаф пересказывает историю Израиля от исхода до царя Давида. Цель он называет в стихе 7: чтобы дети возлагали надежду на Бога и не забывали Его дел.",
+   questions:["Какие истории о Божьей помощи нашей семье ребёнок уже слышал от меня?","О чём я молчу или откладываю разговор?"],
+   step:"Рассказать ребёнку одну историю о том, как Бог помог нашей семье."},
+  {ref:"Притчи 1:8", theme:"Отец и мать вместе",
+   text:"Слушай, сын мой, наставление отца твоего и не отвергай завета матери твоей.",
+   context:"Так открывается первое наставление книги Притчей. Мудрость идёт к ребёнку через обоих родителей. «Завет» матери здесь значит её учение и указания.",
+   questions:["Насколько согласно взрослые в нашем доме учат ребёнка?","Как я сам принимаю наставление старших?"],
+   step:"Договориться с близкими об одном общем правиле и объяснить его ребёнку вместе."},
+  {ref:"Матфея 19:14", theme:"Дорога к Иисусу открыта",
+   text:"Но Иисус сказал: пустите детей и не препятствуйте им приходить ко Мне, ибо таковых есть Царство Небесное.",
+   context:"Ученики запрещали приводить детей, считая, что те отнимают у Учителя время. Иисус возложил на детей руки и сказал, что Царство принадлежит таким, как они.",
+   questions:["Что в нашей семье мешает ребёнку приходить к Иисусу?","Чем для ребёнка выглядит вера: радостью или обязанностью?"],
+   step:"Помолиться вместе с ребёнком своими словами и дать ему начать первым."},
+  {ref:"Псалом 126:3", theme:"Дети как дар",
+   text:"Вот наследие от Господа: дети; награда от Него - плод чрева.",
+   context:"Псалом открывается мыслью: если Господь не строит дом, труд строителей напрасен. Дети в нём названы наследием, то есть тем, что дано Богом и Ему принадлежит.",
+   questions:["Когда я в последний раз благодарил Бога за ребёнка конкретно, по пунктам?","Как я говорю о своих детях при других людях?"],
+   step:"Сказать ребёнку, за что именно в нём я благодарю Бога."},
+  {ref:"2 Тимофею 3:15", theme:"Писание с детства",
+   text:"Притом же ты из детства знаешь священные писания, которые могут умудрить тебя во спасение верою во Христа Иисуса.",
+   context:"Отец Тимофея был эллином. Веру он принял от бабушки Лоиды и матери Евники (2 Тим. 1:5), которые знакомили его с Писанием с ранних лет.",
+   questions:["Как часто ребёнок слышит Библию из моих уст?","Какая библейская история могла бы стать нашей общей?"],
+   step:"Всю неделю читать с ребёнком короткий отрывок Писания перед сном."},
+  {ref:"Притчи 13:24", theme:"Любовь, которая исправляет",
+   text:"Кто жалеет розги своей, тот ненавидит сына; а кто любит, тот с детства наказывает его.",
+   context:"Розга в книге Притчей служит образом исправления. Мысль стиха: равнодушие к поведению ребёнка ему вредит, а любящий родитель исправляет рано и последовательно.",
+   questions:["Где я уступаю ребёнку, чтобы избежать конфликта?","Как сделать, чтобы исправление шло из любви и без гнева?"],
+   step:"Выбрать одну область, где нужна последовательность, и держаться её всю неделю."},
+  {ref:"Иисус Навин 24:15", theme:"Решение семьи",
+   text:"а я и дом мой будем служить Господу.",
+   context:"В конце жизни Иисус Навин собирает народ в Сихеме и ставит его перед выбором. Свой ответ он даёт за себя и за весь дом, ещё до того как ответит народ.",
+   questions:["Чему на деле служит наш дом: куда уходят время, деньги и силы?","Что ребёнок видит в моём выборе каждый день?"],
+   step:"Написать этот стих вместе с ребёнком и повесить на видном месте."}
+];
+
+const LEVELS = ["Читать","Пропуски","Больше пропусков","Первые буквы","По памяти"];
+let idx = 0, tab = "verse", level = 0, learned = new Set();
+
+try{
+  const s = JSON.parse(localStorage.getItem("verses-state")||"{}");
+  if(Number.isInteger(s.idx) && s.idx>=0 && s.idx<VERSES.length) idx = s.idx;
+  if(Array.isArray(s.learned)) learned = new Set(s.learned.filter(n=>n>=0&&n<VERSES.length));
+}catch(e){}
+function save(){ try{ localStorage.setItem("verses-state", JSON.stringify({idx, learned:[...learned]})); }catch(e){} }
+
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function renderChips(){
+  $("chips").innerHTML = VERSES.map((v,i)=>
+    `<button class="chip${learned.has(i)?" learned":""}" data-i="${i}" aria-current="${i===idx}"><span class="dot"></span>${esc(shortRef(v.ref))}</button>`).join("");
+  $("progText").textContent = `Выучено ${learned.size} из ${VERSES.length}`;
+  $("progBar").style.width = (learned.size/VERSES.length*100)+"%";
+}
+function shortRef(r){
+  return r.replace("Второзаконие","Втор.").replace("Притчи","Прит.").replace("Ефесянам","Еф.")
+    .replace("Псалом","Пс.").replace("Матфея","Мф.").replace("2 Тимофею","2 Тим.").replace("Иисус Навин","Нав.");
+}
+
+function hidden(i, core){
+  if(!core) return false;
+  if(level===1) return core.length>3 && i%3===1;
+  if(level===2) return core.length>2 && i%3!==0;
+  return level>=3;
+}
+function learnVerse(text){
+  return text.split(/\s+/).map((w,i)=>{
+    const m = w.match(/^([^\p{L}]*)(.*?)([^\p{L}]*)$/u);
+    const pre=m[1], core=m[2], post=m[3];
+    if(!hidden(i, core)) return esc(w);
+    const width = Math.max(2, core.length*0.62).toFixed(1)+"em";
+    if(level===3){
+      return `${esc(pre)}<button class="gap fl" data-w="${esc(core)}" aria-label="Показать слово">${esc(core[0])}<span class="rest" style="width:${(Math.max(1,(core.length-1)*0.55)).toFixed(1)}em"></span></button>${esc(post)}`;
+    }
+    return `${esc(pre)}<button class="gap" data-w="${esc(core)}" aria-label="Показать слово" style="width:${width}">${esc(core)}</button>${esc(post)}`;
+  }).join(" ");
+}
+
+function renderPanel(){
+  const v = VERSES[idx];
+  let html = "";
+  if(tab==="verse"){
+    html = `<p class="verse">${esc(v.text)}</p><p class="verse-ref">${esc(v.ref)}</p>`;
+  } else if(tab==="reflect"){
+    html = `<h3>Контекст</h3><p>${esc(v.context)}</p>
+      <h3>Вопросы для размышления</h3><ol>${v.questions.map(q=>`<li>${esc(q)}</li>`).join("")}</ol>
+      <h3>Шаг на неделю</h3><p class="step">${esc(v.step)}</p>`;
+  } else {
+    html = `<div class="levels" role="group" aria-label="Уровень">${LEVELS.map((l,i)=>
+        `<button class="lvl" data-l="${i}" aria-pressed="${i===level}">${l}</button>`).join("")}</div>
+      <p class="verse" id="learnText">${level===4 ? hiddenAll(v.text) : learnVerse(v.text)}</p>
+      <p class="verse-ref">${esc(v.ref)}</p>
+      <p class="hint">${level===0 ? "Прочитайте стих вслух несколько раз, затем выберите следующий уровень." : "Произнесите стих целиком. Нажмите на пропуск, если слово не вспоминается."}</p>
+      <div class="actions">
+        ${level>0?`<button class="btn" id="revealAll">Открыть все слова</button>`:""}
+        ${level<4?`<button class="btn primary" id="harder">Сложнее</button>`:""}
+        <button class="btn${learned.has(idx)?" done":""}" id="mark">${learned.has(idx)?"Выучен":"Отметить выученным"}</button>
+      </div>`;
+  }
+  $("panel").innerHTML = html;
+}
+function hiddenAll(text){
+  const save = level; level = 4;
+  const out = learnVerse(text); level = save; return out;
+}
+
+function render(){
+  const v = VERSES[idx];
+  $("count").textContent = `Стих ${idx+1} из ${VERSES.length}`;
+  $("theme").textContent = v.theme;
+  $("ref").textContent = v.ref;
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===tab));
+  $("prev").disabled = idx===0; $("next").disabled = idx===VERSES.length-1;
+  $("prev").style.opacity = idx===0?.4:1; $("next").style.opacity = idx===VERSES.length-1?.4:1;
+  renderChips(); renderPanel(); save();
+}
+function go(i){ idx = Math.max(0, Math.min(VERSES.length-1, i)); level = 0; render(); }
+
+$("chips").addEventListener("click", e=>{ const b=e.target.closest(".chip"); if(b) go(+b.dataset.i); });
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click", ()=>{ tab=t.dataset.tab; render(); }));
+$("prev").addEventListener("click", ()=>go(idx-1));
+$("next").addEventListener("click", ()=>go(idx+1));
+$("panel").addEventListener("click", e=>{
+  const g = e.target.closest(".gap");
+  if(g){ const s=document.createElement("span"); s.className="revealed"; s.textContent=g.dataset.w; g.replaceWith(s); return; }
+  const l = e.target.closest(".lvl");
+  if(l){ level=+l.dataset.l; renderPanel(); return; }
+  if(e.target.id==="harder"){ level=Math.min(4,level+1); renderPanel(); return; }
+  if(e.target.id==="revealAll"){ document.querySelectorAll("#learnText .gap").forEach(g=>{ const s=document.createElement("span"); s.className="revealed"; s.textContent=g.dataset.w; g.replaceWith(s); }); return; }
+  if(e.target.id==="mark"){ learned.has(idx)?learned.delete(idx):learned.add(idx); renderChips(); renderPanel(); save(); }
+});
+document.addEventListener("keydown", e=>{
+  if(e.key==="ArrowRight") go(idx+1);
+  if(e.key==="ArrowLeft") go(idx-1);
+});
+render();
+</script>
+</body>
+</html>
